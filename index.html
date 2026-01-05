@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sushi Draft Party (fan tool)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">🍣</div>
+      <div>
+        <div class="title">Sushi Draft Party</div>
+        <div class="subtitle">Pass-and-play • 2–8 jugadores • 3 rondas</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button id="btnHelp" class="btn ghost">Modo árbitro ⚖️</button>
+      <button id="btnReset" class="btn danger ghost">Reiniciar</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- SETUP -->
+    <section id="screenSetup" class="card">
+      <h2>Configurar partida</h2>
+
+      <div class="grid2">
+        <div class="field">
+          <label>Jugadores</label>
+          <div class="row">
+            <button class="btn" id="btnMinus">−</button>
+            <div class="pill" id="playerCount">4</div>
+            <button class="btn" id="btnPlus">+</button>
+          </div>
+          <p class="hint">Cartas por jugador: <span id="cardsPerPlayer">8</span> (por ronda)</p>
+        </div>
+
+        <div class="field">
+          <label>Dirección de pase</label>
+          <div class="row">
+            <div class="pill" id="passDir">R1 ➜ derecha • R2 ➜ izquierda • R3 ➜ derecha</div>
+          </div>
+          <p class="hint">Se alterna por ronda (como en muchos juegos de draft).</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Nombres (opcional)</label>
+        <div id="playerNames" class="names"></div>
+        <p class="hint">Si no pones nombres, uso “Jugador 1, 2, 3…”</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Menú (cartas activas)</h3>
+      <p class="hint">
+        Incluye lo más jugado: Nigiri, Wasabi, Tempura, Sashimi, Dumplings, Maki, Pudding y Chopsticks.
+        Puedes ajustar conteos si quieres algo más “Party”.
+      </p>
+
+      <div class="menu">
+        <div class="menu-item">
+          <input type="checkbox" id="cNigiri" checked />
+          <label for="cNigiri">Nigiri (🍤/🐟/🦑)</label>
+        </div>
+        <div class="menu-item">
+          <input type="checkbox" id="cWasabi" checked />
+          <label for="cWasabi">Wasabi 🌶️</label>
+        </div>
+        <div class="menu-item">
+          <input type="checkbox" id="cTempura" checked />
+          <label for="cTempura">Tempura 🍤🍤 (pares)</label>
+        </div>
+        <div class="menu-item">
+          <input type="checkbox" id="cSashimi" checked />
+          <label for="cSashimi">Sashimi 🍣🍣🍣 (tríos)</label>
+        </div>
+        <div class="menu-item">
+          <input type="checkbox" id="cDumpling" checked />
+          <label for="cDumpling">Dumplings 🥟 (escalera)</label>
+        </div>
+        <div class="menu-item">
+          <input type="checkbox" id="cMaki" checked />
+          <label for="cMaki">Maki 🎏 (mayorías por ronda)</label>
+        </div>
+        <div class="menu-item">
+          <input type="checkbox" id="cPudding" checked />
+          <label for="cPudding">Pudding 🍮 (final del juego)</label>
+        </div>
+        <div class="menu-item">
+          <input type="checkbox" id="cChopsticks" checked />
+          <label for="cChopsticks">Chopsticks 🥢 (jugar 2 cartas)</label>
+        </div>
+      </div>
+
+      <details class="details">
+        <summary>⚙️ Ajustar conteos del mazo (opcional)</summary>
+        <p class="hint">
+          Esto define la “bolsa” de cartas por ronda (se baraja y se reparte). Si lo dejas así, está balanceado para juego familiar.
+        </p>
+        <div id="deckCounts" class="counts"></div>
+      </details>
+
+      <div class="row end">
+        <button id="btnStart" class="btn primary">Empezar partida</button>
+      </div>
+    </section>
+
+    <!-- GAME -->
+    <section id="screenGame" class="card hidden">
+      <div class="game-head">
+        <div>
+          <div class="kicker" id="roundInfo">Ronda 1 / 3</div>
+          <h2 id="turnTitle">Turno de: Jugador 1</h2>
+          <div class="hint" id="passInfo">Pasa a la derecha ➜</div>
+        </div>
+        <div class="game-head-actions">
+          <button id="btnScoreboard" class="btn">Marcador</button>
+          <button id="btnRoundEnd" class="btn ghost">Forzar fin de ronda</button>
+        </div>
+      </div>
+     <div id="playerBar" class="playerbar"></div>
+      <div class="grid2 game-grid">
+        <div class="panel">
+          <h3>Tu mesa</h3>
+          <div id="tableCards" class="chips"></div>
+          <div class="row gap">
+            <button id="btnUseChopsticks" class="btn" disabled>Usar 🥢 (jugar 2)</button>
+            <div class="pill small" id="pickMode">Elige 1 carta</div>
+          </div>
+          <p class="hint">
+            🌶️ Wasabi aplica al <b>siguiente Nigiri</b> que bajes <b>después</b> (misma ronda).  
+            🍮 Pudding se guarda hasta el final del juego.
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3>Tu mano</h3>
+          <div id="handCards" class="cards"></div>
+          <div class="row end gap">
+            <button id="btnConfirmPick" class="btn primary" disabled>Confirmar jugada</button>
+          </div>
+          <p class="hint" id="handHint">Elige una carta. Luego se pasa la mano.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERLAY: PASS DEVICE -->
+    <div id="overlayPass" class="overlay hidden" role="dialog" aria-modal="true">
+      <div class="overlay-card">
+        <h2>📱 Pásale el dispositivo al siguiente jugador</h2>
+        <p id="overlayText" class="hint">Siguiente: Jugador 2</p>
+        <button id="btnNextPlayer" class="btn primary">Listo</button>
+      </div>
+    </div>
+
+    <!-- MODAL: SCOREBOARD -->
+    <div id="modalScore" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="row space">
+          <h2>Marcador</h2>
+          <button class="btn ghost" id="btnCloseScore">Cerrar</button>
+        </div>
+        <div id="scoreContent"></div>
+      </div>
+    </div>
+
+    <!-- MODAL: HELP -->
+    <div id="modalHelp" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="row space">
+          <h2>Modo árbitro ⚖️ (dudas comunes)</h2>
+          <button class="btn ghost" id="btnCloseHelp">Cerrar</button>
+        </div>
+        <div class="help">
+          <h3>🥢 Chopsticks</h3>
+          <ul>
+            <li>Te permite jugar <b>2 cartas en un turno</b> (si te quedan al menos 2 en mano).</li>
+            <li>Para usarlo, debes tener 🥢 en tu mesa <b>de turnos anteriores</b>.</li>
+            <li>Al usarlo, el 🥢 regresa a tu mano y se <b>pasa junto con la mano</b>.</li>
+          </ul>
+
+          <h3>🌶️ Wasabi</h3>
+          <ul>
+            <li>No vale puntos solo.</li>
+            <li><b>Triplica</b> el valor del <b>siguiente Nigiri</b> que juegues después.</li>
+            <li>No afecta Pudding ni sets.</li>
+            <li>No “se guarda” entre rondas: al final de cada ronda se descarta.</li>
+          </ul>
+
+          <h3>🎏 Maki (mayorías por ronda)</h3>
+          <ul>
+            <li>Se suman los íconos de maki. 1º lugar: 6 pts, 2º: 3 pts.</li>
+            <li>Empates: se <b>dividen</b> los puntos entre empatados.</li>
+            <li>Si hay empate en 1º, el 2º <b>no puntúa</b>.</li>
+          </ul>
+
+          <h3>🍮 Pudding</h3>
+          <ul>
+            <li>Solo se puntúa al final del juego.</li>
+            <li>Más puddings: +6, menos: −6 (empates dividen).</li>
+          </ul>
+
+          <h3>🧾 Fin de ronda</h3>
+          <ul>
+            <li>Todo se descarta al final de cada ronda, <b>excepto Pudding</b>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="hint">Hecho para jugar en familia. Sin internet. Sin arte oficial. 🍣</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

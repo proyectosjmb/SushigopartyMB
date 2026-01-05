@@ -1,0 +1,507 @@
+:root{
+  --bg:#0f1115;
+  --card:#171a21;
+  --card2:#12151b;
+  --text:#e8e8ea;
+  --muted:#a8acb3;
+  --line:#262a33;
+  --primary:#6ee7b7;
+  --danger:#fb7185;
+  --shadow: 0 14px 40px rgba(0,0,0,.35);
+  --radius: 18px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background: radial-gradient(1200px 700px at 20% 0%, rgba(110,231,183,.10), transparent 55%),
+              radial-gradient(1200px 700px at 80% 0%, rgba(56,189,248,.10), transparent 55%),
+              var(--bg);
+  color:var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+}
+
+.topbar{
+  position:sticky; top:0; z-index:10;
+  backdrop-filter: blur(10px);
+  background: rgba(15,17,21,.65);
+  border-bottom:1px solid var(--line);
+  padding:12px 16px;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px;
+}
+.brand{display:flex; align-items:center; gap:12px}
+.logo{font-size:28px}
+.title{font-weight:900; letter-spacing:.2px}
+.subtitle{font-size:12px; color:var(--muted)}
+.top-actions{display:flex; gap:10px; flex-wrap:wrap}
+
+.wrap{max-width:1100px; margin:18px auto 48px; padding:0 14px}
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+  border:1px solid var(--line);
+  border-radius: var(--radius);
+  padding:18px;
+  box-shadow: var(--shadow);
+}
+.hidden{display:none !important}
+
+h2{margin:0 0 12px}
+h3{margin:14px 0 8px}
+.kicker{color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.12em}
+.hint{color:var(--muted); font-size:13px; line-height:1.45}
+.divider{height:1px; background:var(--line); margin:16px 0}
+
+.grid2{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap:14px;
+}
+@media (max-width: 860px){
+  .grid2{grid-template-columns:1fr}
+}
+
+.field label{display:block; font-weight:700; margin-bottom:8px}
+.row{display:flex; align-items:center}
+.row.gap{gap:10px}
+.row.end{justify-content:flex-end}
+.row.space{justify-content:space-between}
+.end{justify-content:flex-end}
+
+.pill{
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(0,0,0,.25);
+  min-width: 52px;
+  text-align:center;
+  font-weight:800;
+}
+.pill.small{padding:7px 10px; font-size:12px}
+
+.btn{
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.04);
+  color:var(--text);
+  padding:10px 12px;
+  border-radius: 12px;
+  cursor:pointer;
+  font-weight:800;
+  transition: transform .05s ease, background .15s ease;
+}
+.btn:hover{background: rgba(255,255,255,.07)}
+.btn:active{transform: translateY(1px)}
+.btn[disabled]{opacity:.45; cursor:not-allowed}
+
+.btn.primary{
+  border-color: rgba(110,231,183,.35);
+  background: rgba(110,231,183,.14);
+}
+.btn.primary:hover{background: rgba(110,231,183,.20)}
+.btn.ghost{background: transparent}
+.btn.danger{border-color: rgba(251,113,133,.35); color: #ffd7dd}
+
+.names{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap:10px;
+}
+@media (max-width: 860px){
+  .names{grid-template-columns: repeat(2, minmax(0,1fr))}
+}
+.name-input{
+  width:100%;
+  padding:10px 12px;
+  border-radius: 12px;
+  border:1px solid var(--line);
+  background: rgba(0,0,0,.25);
+  color:var(--text);
+  outline:none;
+}
+
+.menu{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap:8px;
+}
+@media (max-width: 860px){ .menu{grid-template-columns:1fr} }
+.menu-item{
+  display:flex; align-items:center; gap:10px;
+  border:1px solid var(--line);
+  background: rgba(0,0,0,.22);
+  padding:10px 12px;
+  border-radius: 14px;
+}
+.menu-item input{transform: scale(1.1)}
+
+.details{
+  margin-top:12px;
+  border:1px solid var(--line);
+  background: rgba(0,0,0,.18);
+  padding:10px 12px;
+  border-radius: 14px;
+}
+.details summary{cursor:pointer; font-weight:900}
+
+.counts{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap:10px;
+  margin-top:10px;
+}
+@media (max-width: 860px){ .counts{grid-template-columns: repeat(2, minmax(0,1fr))} }
+.count{
+  border:1px solid var(--line);
+  background: rgba(0,0,0,.22);
+  padding:10px 12px;
+  border-radius: 14px;
+}
+.count .lbl{font-size:12px; color:var(--muted)}
+.count input{
+  width:100%;
+  margin-top:6px;
+  padding:10px 12px;
+  border-radius: 12px;
+  border:1px solid var(--line);
+  background: rgba(0,0,0,.28);
+  color:var(--text);
+  font-weight:900;
+  outline:none;
+}
+
+.game-head{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+  margin-bottom:12px;
+  flex-wrap:wrap;
+}
+.game-head-actions{display:flex; gap:10px; flex-wrap:wrap}
+.game-grid{margin-top:10px}
+.panel{
+  border:1px solid var(--line);
+  background: rgba(0,0,0,.20);
+  padding:14px;
+  border-radius: 16px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:10px;
+}
+@media (max-width: 860px){
+  .cards{grid-template-columns: repeat(2, minmax(0,1fr))}
+}
+
+.cardbtn{
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  border-radius: 16px;
+  padding:12px;
+  cursor:pointer;
+  text-align:left;
+  min-height: 92px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  transition: transform .05s ease, background .15s ease, border-color .15s ease;
+}
+.cardbtn:hover{background: rgba(255,255,255,.06)}
+.cardbtn:active{transform: translateY(1px)}
+.cardbtn.selected{
+  border-color: rgba(110,231,183,.6);
+  background: rgba(110,231,183,.12);
+}
+.cardbtn .t{font-weight:950}
+.cardbtn .d{font-size:12px; color:var(--muted); line-height:1.25}
+.cardbtn .icon{font-size:22px}
+
+.chips{display:flex; flex-wrap:wrap; gap:8px; min-height: 40px}
+.chip{
+  padding:8px 10px;
+  border-radius: 999px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  font-weight:900;
+  font-size:12px;
+}
+.chip b{font-weight:1000}
+.chip .sub{color:var(--muted); font-weight:800; margin-left:6px}
+
+.overlay, .modal{
+  position:fixed; inset:0;
+  background: rgba(0,0,0,.65);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  z-index:50;
+}
+.overlay-card, .modal-card{
+  max-width: 760px;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+  border:1px solid var(--line);
+  border-radius: 18px;
+  padding:18px;
+  box-shadow: var(--shadow);
+}
+.help ul{margin-top:6px}
+.help li{margin:6px 0; color:var(--muted)}
+.footer{
+  padding: 16px;
+  text-align:center;
+  border-top:1px solid var(--line);
+  background: rgba(15,17,21,.65);
+}
+
+/* =========================
+   COLOR UPGRADE (pegar al final)
+   ========================= */
+
+:root{
+  /* Colores por tipo de carta (accent + fondo suave) */
+  --cg-nigiri: rgba(251,191,36,.92);
+  --cg-nigiri-bg: rgba(251,191,36,.12);
+
+  --cg-wasabi: rgba(110,231,183,.95);
+  --cg-wasabi-bg: rgba(110,231,183,.12);
+
+  --cg-tempura: rgba(249,115,22,.92);
+  --cg-tempura-bg: rgba(249,115,22,.12);
+
+  --cg-sashimi: rgba(251,113,133,.92);
+  --cg-sashimi-bg: rgba(251,113,133,.12);
+
+  --cg-dumpling: rgba(167,139,250,.92);
+  --cg-dumpling-bg: rgba(167,139,250,.12);
+
+  --cg-maki: rgba(56,189,248,.92);
+  --cg-maki-bg: rgba(56,189,248,.12);
+
+  --cg-pudding: rgba(244,114,182,.92);
+  --cg-pudding-bg: rgba(244,114,182,.12);
+
+  --cg-chop: rgba(148,163,184,.85);
+  --cg-chop-bg: rgba(148,163,184,.12);
+}
+
+/* ----- Setup: nombres con color por jugador ----- */
+.name-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background: rgba(0,0,0,.20);
+}
+.name-dot{
+  width:12px; height:12px;
+  border-radius:999px;
+  background: var(--p);
+  box-shadow: 0 0 0 3px rgba(0,0,0,.35);
+  flex: 0 0 auto;
+}
+.name-row .name-input{
+  width:100%;
+  border:0;
+  background: transparent;
+  padding:10px 6px;
+  outline:none;
+}
+
+/* ----- Barra de jugadores (en la partida) ----- */
+.playerbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin: 10px 0 6px;
+}
+.pbadge{
+  --p: rgba(255,255,255,.4);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background: rgba(0,0,0,.18);
+}
+.pbadge.active{
+  border-color: var(--p);
+  box-shadow: 0 0 0 2px rgba(0,0,0,.20);
+}
+.pDot{
+  width:12px; height:12px;
+  border-radius:999px;
+  background: var(--p);
+  box-shadow: 0 0 0 3px rgba(0,0,0,.35);
+}
+.pDot.inline{
+  width:10px; height:10px;
+  box-shadow:none;
+}
+.pName{ font-weight:950; }
+.pMeta{ color: var(--muted); font-size:12px; font-weight:800; }
+
+/* Turno de: con color */
+.turnName{
+  --p: rgba(255,255,255,.4);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid var(--p);
+  background: rgba(0,0,0,.22);
+}
+
+/* ----- Cartas con color por grupo ----- */
+.dot{
+  width:10px; height:10px;
+  border-radius:999px;
+  background: var(--accent);
+  display:inline-block;
+  box-shadow: 0 0 0 3px rgba(0,0,0,.22);
+  margin-right:8px;
+}
+
+.badge{
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid var(--accent);
+  background: var(--accentBg);
+  font-size:12px;
+  font-weight:950;
+  color: var(--text);
+}
+
+/* Re-define cardbtn usando variables de color */
+.cardbtn{
+  --accent: rgba(255,255,255,.22);
+  --accentBg: rgba(255,255,255,.05);
+
+  border-color: var(--accent);
+  background: linear-gradient(180deg, var(--accentBg), rgba(255,255,255,.02));
+  position:relative;
+  overflow:hidden;
+}
+.cardbtn::after{
+  content:"";
+  position:absolute;
+  inset:-40px;
+  background: radial-gradient(circle at 25% 0%, rgba(255,255,255,.10), transparent 55%);
+  pointer-events:none;
+}
+.cardbtn.selected{
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+/* Color por tipo (usando data-group) */
+.cardbtn[data-group="Nigiri"], .chip[data-group="Nigiri"] { --accent: var(--cg-nigiri); --accentBg: var(--cg-nigiri-bg); }
+.cardbtn[data-group="Wasabi"], .chip[data-group="Wasabi"] { --accent: var(--cg-wasabi); --accentBg: var(--cg-wasabi-bg); }
+.cardbtn[data-group="Tempura"], .chip[data-group="Tempura"] { --accent: var(--cg-tempura); --accentBg: var(--cg-tempura-bg); }
+.cardbtn[data-group="Sashimi"], .chip[data-group="Sashimi"] { --accent: var(--cg-sashimi); --accentBg: var(--cg-sashimi-bg); }
+.cardbtn[data-group="Dumpling"], .chip[data-group="Dumpling"] { --accent: var(--cg-dumpling); --accentBg: var(--cg-dumpling-bg); }
+.cardbtn[data-group="Maki"], .chip[data-group="Maki"] { --accent: var(--cg-maki); --accentBg: var(--cg-maki-bg); }
+.cardbtn[data-group="Pudding"], .chip[data-group="Pudding"] { --accent: var(--cg-pudding); --accentBg: var(--cg-pudding-bg); }
+.cardbtn[data-group="Chopsticks"], .chip[data-group="Chopsticks"] { --accent: var(--cg-chop); --accentBg: var(--cg-chop-bg); }
+
+/* Pill de grupo dentro de la carta */
+.pill.tag{
+  border-color: var(--accent) !important;
+  background: var(--accentBg) !important;
+}
+
+/* Chips (mesa) también con color */
+.chip{
+  --accent: rgba(255,255,255,.22);
+  --accentBg: rgba(255,255,255,.05);
+  border-color: var(--accent);
+  background: linear-gradient(180deg, var(--accentBg), rgba(255,255,255,.02));
+}
+/* =========================
+   FIX: MODALES MÁS LEGIBLES
+   (pégalo al final)
+   ========================= */
+
+.modal, .overlay{
+  background: rgba(0,0,0,.72); /* oscurece más el fondo */
+  backdrop-filter: blur(6px);
+}
+
+.modal-card, .overlay-card{
+  /* antes era muy transparente; ahora es sólido */
+  background: rgba(15,17,21,.94);
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 18px 60px rgba(0,0,0,.55);
+}
+
+/* Los “cards” dentro del marcador también más sólidos */
+#modalScore .card{
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.10);
+}
+
+/* Texto tenue pero legible dentro del marcador */
+#modalScore .hint{
+  color: rgba(232,232,234,.80);
+}
+/* =========================
+   THEME: MESA JAPONESA SUTIL
+   (pégalo al final)
+   ========================= */
+
+body{
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Capa de “mesa” + patrón discreto */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+
+  /* 1) “Madera” muy sutil (degradados) */
+  background:
+    radial-gradient(900px 500px at 20% 0%, rgba(180,120,70,.10), transparent 55%),
+    radial-gradient(900px 500px at 80% 0%, rgba(120,80,50,.10), transparent 55%),
+    linear-gradient(120deg, rgba(110,70,40,.10), rgba(0,0,0,0) 55%),
+    linear-gradient(0deg, rgba(0,0,0,.20), rgba(0,0,0,.35));
+
+  opacity: .85;
+}
+
+/* 2) Patrón “tatami/grid” MUY suave encima */
+body::after{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.035) 0px,
+      rgba(255,255,255,.035) 1px,
+      transparent 1px,
+      transparent 26px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,.028) 0px,
+      rgba(255,255,255,.028) 1px,
+      transparent 1px,
+      transparent 26px
+    ),
+    radial-gradient(1200px 700px at 50% 10%, rgba(0,0,0,.20), transparent 60%);
+
+  opacity: .40; /* bajito para que siga minimalista */
+}
+
