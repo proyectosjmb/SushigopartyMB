@@ -7,6 +7,34 @@
 
 const $ = (id) => document.getElementById(id);
 
+
+// -------------------- THEME (Minimal / Fiesta) --------------------
+const THEME_KEY = "sushi_theme";
+
+function sanitizeTheme(t){
+  return (t === "party") ? "party" : "minimal";
+}
+function getSavedTheme(){
+  try{ return sanitizeTheme(localStorage.getItem(THEME_KEY) || "minimal"); }
+  catch(_){ return "minimal"; }
+}
+function applyTheme(theme){
+  const t = sanitizeTheme(theme);
+  document.documentElement.setAttribute("data-theme", t);
+  try{ localStorage.setItem(THEME_KEY, t); } catch(_){}
+
+  const btn = $("btnTheme");
+  if(btn) btn.textContent = `Tema: ${t === "party" ? "Fiesta" : "Minimal"}`;
+
+  document.querySelectorAll('input[name="theme"]').forEach(r=>{
+    r.checked = (r.value === t);
+  });
+}
+function toggleTheme(){
+  const cur = sanitizeTheme(document.documentElement.getAttribute("data-theme"));
+  applyTheme(cur === "party" ? "minimal" : "party");
+}
+
 const PLAYER_COLORS = [
   "#6ee7b7", // verde menta
   "#38bdf8", // azul cielo
@@ -735,6 +763,7 @@ $("btnScoreboard").addEventListener("click", ()=>openScoreboard(false));
 $("btnCloseScore").addEventListener("click", closeScoreboard);
 
 $("btnHelp").addEventListener("click", openHelp);
+$("btnTheme")?.addEventListener("click", toggleTheme);
 $("btnCloseHelp").addEventListener("click", closeHelp);
 
 $("btnRoundEnd").addEventListener("click", forceEndRound);
@@ -745,6 +774,11 @@ document.addEventListener("click", ()=>{
   const g = state.game;
   const need = g.wantTwoPicks ? 2 : 1;
   $("btnConfirmPick").disabled = (g.selected.size !== need);
+});
+
+applyTheme(getSavedTheme());
+document.querySelectorAll('input[name="theme"]').forEach(r=>{
+  r.addEventListener("change", ()=>applyTheme(r.value));
 });
 
 // Render setup defaults
