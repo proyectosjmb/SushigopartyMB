@@ -505,3 +505,131 @@ body::after{
   opacity: .40; /* bajito para que siga minimalista */
 }
 
+
+
+/* =========================
+   THEME SWITCHER (Minimal / Fiesta)
+   ========================= */
+
+.theme-picks{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.theme-opt{
+  flex: 1 1 260px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 12px;
+  border-radius: 14px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.03);
+}
+.theme-opt input{ accent-color: var(--primary); }
+
+/* ----- Fiesta Theme ----- */
+html[data-theme="party"]{
+  --bg:#f6f7fb;
+  --card:#ffffff;
+  --card2:#ffffff;
+  --text:#101114;
+  --muted:#475569;
+  --line:#e5e7eb;
+  --shadow: 0 14px 40px rgba(15,23,42,.12);
+  --primary:#2563eb;
+  --danger:#e11d48;
+
+  /* más “pop” en fondos de acento */
+  --cg-nigiri-bg: rgba(251,191,36,.22);
+  --cg-wasabi-bg: rgba(110,231,183,.22);
+  --cg-tempura-bg: rgba(249,115,22,.22);
+  --cg-sashimi-bg: rgba(251,113,133,.22);
+  --cg-dumpling-bg: rgba(167,139,250,.22);
+  --cg-maki-bg: rgba(56,189,248,.22);
+  --cg-pudding-bg: rgba(244,114,182,.22);
+  --cg-chop-bg: rgba(148,163,184,.20);
+}
+
+html[data-theme="party"] body{
+  background:
+    radial-gradient(1100px 650px at 20% 0%, rgba(37,99,235,.10), transparent 55%),
+    radial-gradient(1100px 650px at 80% 0%, rgba(244,114,182,.10), transparent 55%),
+
+    /* “mesa” suave */
+    radial-gradient(900px 520px at 30% -10%, rgba(180,120,70,.16), transparent 60%),
+    radial-gradient(900px 520px at 70% -10%, rgba(120,80,50,.14), transparent 60%),
+
+    /* grid/tatami finito */
+    repeating-linear-gradient(
+      0deg,
+      rgba(15,23,42,.055) 0px,
+      rgba(15,23,42,.055) 1px,
+      transparent 1px,
+      transparent 26px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(15,23,42,.040) 0px,
+      rgba(15,23,42,.040) 1px,
+      transparent 1px,
+      transparent 26px
+    ),
+
+    var(--bg);
+}
+
+html[data-theme="party"] .topbar{
+  background: rgba(255,255,255,.78);
+  border-bottom: 1px solid rgba(15,23,42,.10);
+  backdrop-filter: blur(10px);
+}
+
+html[data-theme="party"] .card{
+  background: rgba(255,255,255,.92);
+  border-color: rgba(15,23,42,.10);
+}
+
+html[data-theme="party"] .btn{
+  background: rgba(255,255,255,.86);
+  border-color: rgba(15,23,42,.12);
+  color: var(--text);
+}
+html[data-theme="party"] .btn:hover{ background: rgba(255,255,255,.98); }
+
+html[data-theme="party"] .btn.primary{
+  background: rgba(37,99,235,.12);
+  border-color: rgba(37,99,235,.40);
+}
+html[data-theme="party"] .btn.danger{
+  background: rgba(225,29,72,.10);
+  border-color: rgba(225,29,72,.35);
+}
+
+/* Cartas (mano) blancas y muy legibles */
+html[data-theme="party"] .cardbtn{
+  background: #ffffff;
+  border-color: rgba(15,23,42,.12);
+}
+html[data-theme="party"] .cardbtn::after{
+  background: radial-gradient(circle at 25% 0%, rgba(15,23,42,.06), transparent 60%);
+}
+html[data-theme="party"] .chip{
+  background: #ffffff;
+  border-color: rgba(15,23,42,.12);
+}
+
+/* Modales: tarjeta blanca y overlay suave */
+html[data-theme="party"] .modal,
+html[data-theme="party"] .overlay{
+  background: rgba(15,23,42,.35);
+  backdrop-filter: blur(8px);
+}
+html[data-theme="party"] .modal-card,
+html[data-theme="party"] .overlay-card{
+  background: rgba(255,255,255,.96);
+  border-color: rgba(15,23,42,.12);
+  color: var(--text);
+  box-shadow: 0 18px 60px rgba(15,23,42,.18);
+}
+html[data-theme="party"] #modalScore .hint{ color: rgba(15,23,42,.72); }
