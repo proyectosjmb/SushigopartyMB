@@ -17,6 +17,7 @@
     </div>
     <div class="top-actions">
       <button id="btnHelp" class="btn ghost">Modo árbitro ⚖️</button>
+      <button id="btnTheme" class="btn ghost">Tema: Minimal</button>
       <button id="btnReset" class="btn danger ghost">Reiniciar</button>
     </div>
   </header>
@@ -50,6 +51,22 @@
         <label>Nombres (opcional)</label>
         <div id="playerNames" class="names"></div>
         <p class="hint">Si no pones nombres, uso “Jugador 1, 2, 3…”</p>
+      </div>
+
+
+      <div class="field">
+        <label>Estilo visual</label>
+        <div class="theme-picks">
+          <label class="theme-opt">
+            <input type="radio" name="theme" value="minimal" checked />
+            <span><b>Minimal</b> <span class="hint">translúcido</span></span>
+          </label>
+          <label class="theme-opt">
+            <input type="radio" name="theme" value="party" />
+            <span><b>Fiesta</b> <span class="hint">opaco, blanco y colorido</span></span>
+          </label>
+        </div>
+        <p class="hint">Puedes cambiarlo en cualquier momento con el botón “Tema”.</p>
       </div>
 
       <div class="divider"></div>
